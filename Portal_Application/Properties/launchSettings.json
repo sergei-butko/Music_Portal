@@ -20,7 +20,8 @@
       "launchBrowser": true,
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "URL": "https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=b96a38553e5045f118f8097659031ff3&format=json"
       }
     }
   }

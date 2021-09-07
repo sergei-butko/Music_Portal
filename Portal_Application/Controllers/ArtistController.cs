@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -13,12 +13,11 @@ namespace Portal_Application.Controllers
     [Route("[controller]")]
     public class ArtistController : ControllerBase
     {
-        private readonly ILogger<ArtistController> _logger;
         private readonly ApplicationContext _db;
+        private readonly ArtistLastFm[] _artists = GetArtists().Result.Artists.Artist.ToArray();
 
-        public ArtistController(ILogger<ArtistController> logger, ApplicationContext context)
+        public ArtistController(ApplicationContext context)
         {
-            _logger = logger;
             _db = context;
             
             if (!_db.Artists.Any())
@@ -38,66 +37,19 @@ namespace Portal_Application.Controllers
             }
         }
 
-        private static async Task<RootLastFm> GetArtists()
+        private static async Task<TopArtistsResponseLastFm> GetArtists()
         {
             var httpClient = new HttpClient();
-            var response = await httpClient.GetAsync(
-                "http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&" +
-                "api_key=b96a38553e5045f118f8097659031ff3&format=json");
-            var result = await response.Content.ReadAsAsync<RootLastFm>();
+            var response = await httpClient.GetAsync(Environment.GetEnvironmentVariable("URL"));
+            var result = await response.Content.ReadAsAsync<TopArtistsResponseLastFm>();
 
             return result;
         }
         
-        readonly ArtistLastFm[] _artists = GetArtists().Result.Artists.Artist.ToArray();
-        
         [HttpGet]
-        public List<Core.Artist> Get()
+        public List<Artist> Get()
         {
             return _db.Artists.ToList();
-        }
-
-        [HttpGet("{id}")]
-        public Artist Get(int id)
-        {
-            Artist artist = _db.Artists.FirstOrDefault(x => x.Id == id);
-            return artist;
-        }
-        
-        [HttpPost]
-        public IActionResult Post(Artist artist)
-        {
-            if (ModelState.IsValid)
-            {
-                _db.Artists.Add(artist);
-                _db.SaveChanges();
-                return Ok(artist);
-            }
-            return BadRequest(ModelState);
-        }
-        
-        [HttpPut]
-        public IActionResult Put(Artist artist)
-        {
-            if (ModelState.IsValid)
-            {
-                _db.Update(artist);
-                _db.SaveChanges();
-                return Ok(artist);
-            }
-            return BadRequest(ModelState);
-        }
- 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            Artist artist = _db.Artists.FirstOrDefault(x => x.Id == id);
-            if (artist != null)
-            {
-                _db.Artists.Remove(artist);
-                _db.SaveChanges();
-            }
-            return Ok(artist);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Interfaces.Models
 {
-    public class RootLastFm
+    public class TopArtistsResponseLastFm
     {
         public ArtistsLastFm Artists { get; set; }
     }

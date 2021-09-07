@@ -16,14 +16,14 @@ namespace Portal_Application
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            string connectionString = "Server=(localdb)\\mssqllocaldb;Database=productsdb;Trusted_Connection=True;";
-            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
-            services.AddControllersWithViews();
+            services.AddDbContext<ApplicationContext>(options => options
+                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
+            services.AddControllers();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
