@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Interfaces.Models
+﻿namespace Interfaces.Models
 {
     public class ArtistLastFm
     {
@@ -8,6 +6,5 @@ namespace Interfaces.Models
         public int Playcount { get; set; }
         public int Listeners { get; set; }
         public string Url { get; set; }
-        public List<ImageLastFm> Image { get; set; }
     }
 }
