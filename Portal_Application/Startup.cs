@@ -1,4 +1,4 @@
-using AutoMapper;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -28,12 +28,7 @@ namespace Portal_Application
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
             services.AddControllers();
             
-            var config = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new MappingProfile());
-            });
-            IMapper mapper = config.CreateMapper();
-            services.AddSingleton(mapper);
+            services.AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfile)));
             
             services.AddSingleton<ILastFmService, LastFmService>();
             services.AddTransient<IArtistService, ArtistService>();

@@ -6,6 +6,6 @@ namespace Interfaces
 {
     public interface IArtistService
     {
-        Task<IEnumerable<Artist>> GetArtists();
+        Task<IEnumerable<Artist>> GetTopArtists();
     }
 }

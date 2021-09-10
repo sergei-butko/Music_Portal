@@ -20,7 +20,7 @@ namespace Portal_Application.Controllers
         [HttpGet("top_artists")]
         public async Task<IEnumerable<Artist>> Get()
         {
-            return await _artistService.GetArtists();
+            return await _artistService.GetTopArtists();
         }
     }
 }
