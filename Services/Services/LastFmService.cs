@@ -8,20 +8,14 @@ using Interfaces.Models;
 
 namespace Services
 {
-    public class ApiRequest : IApiRequest
+    public class LastFmService : ILastFmService
     {
-        private readonly List<ArtistLastFm> _artists = GetArtists()
-            .Result.Artists.Artist.OrderByDescending(a => a.Listeners).ToList();
-
-        public List<ArtistLastFm> GetTopArtists() => _artists;
-
-        private static async Task<TopArtistsResponseLastFm> GetArtists()
+        public async Task<IEnumerable<ArtistLastFm>> GetTopArtists()
         {
             var httpClient = new HttpClient();
             var response = await httpClient.GetAsync(Environment.GetEnvironmentVariable("URL"));
             var result = await response.Content.ReadAsAsync<TopArtistsResponseLastFm>();
-
-            return result;
+            return result.Artists.Artist.OrderByDescending(a => a.Listeners);
         }
     }
 }
