@@ -28,9 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Core\Core.csproj" />
-    <ProjectReference Include="..\Services\Interfaces\Interfaces.csproj" />
-    <ProjectReference Include="..\Services\Services\Services.csproj" />
+    <ProjectReference Include="..\Domain\Music_Portal.Domain.Core\Music_Portal.Domain.Core.csproj" />
+    <ProjectReference Include="..\Services\Music_Portal.Services.Services\Music_Portal.Services.Services.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

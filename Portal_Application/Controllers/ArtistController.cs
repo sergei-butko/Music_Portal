@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Core;
-using Interfaces;
+using Domain.Core;
+using Services.Interfaces;
 
 namespace Portal_Application.Controllers
 {

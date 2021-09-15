@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>Services</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Domain\Music_Portal.Domain.Core\Music_Portal.Domain.Core.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\Music_Portal.Infrastructure.Data\Music_Portal.Infrastructure.Data.csproj" />
+      <ProjectReference Include="..\Music_Portal.Services.Interfaces\Music_Portal.Services.Interfaces.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    </ItemGroup>
+
+</Project>

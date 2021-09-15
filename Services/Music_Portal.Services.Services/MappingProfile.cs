@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Core;
-using Interfaces.Models;
+using Domain.Core;
+using Services.Interfaces.Models;
 
-namespace Services
+namespace Services.Services
 {
     public class MappingProfile : Profile
     {

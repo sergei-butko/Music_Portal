@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Interfaces;
-using Interfaces.Models;
+using Services.Interfaces.Models;
+using Services.Interfaces;
 
-namespace Services
+namespace Services.Services
 {
     public class LastFmService : ILastFmService
     {
@@ -15,7 +14,7 @@ namespace Services
             var httpClient = new HttpClient();
             var response = await httpClient.GetAsync(Environment.GetEnvironmentVariable("URL"));
             var result = await response.Content.ReadAsAsync<TopArtistsResponseLastFm>();
-            return result.Artists.Artist.OrderByDescending(a => a.Listeners);
+            return result.Artists.Artist;
         }
     }
 }

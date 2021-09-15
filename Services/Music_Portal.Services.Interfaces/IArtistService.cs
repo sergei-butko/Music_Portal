@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Core;
+using Domain.Core;
 
-namespace Interfaces
+namespace Services.Interfaces
 {
     public interface IArtistService
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Interfaces.Models;
+using Services.Interfaces.Models;
 
-namespace Interfaces
+namespace Services.Interfaces
 {
     public interface ILastFmService
     {

@@ -1,4 +1,4 @@
-﻿namespace Interfaces.Models
+﻿namespace Services.Interfaces.Models
 {
     public class TopArtistsResponseLastFm
     {
