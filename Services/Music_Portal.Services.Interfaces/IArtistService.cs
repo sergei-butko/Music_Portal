@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Domain.Core;
+using Music_Portal.Domain.Core;
 
-namespace Services.Interfaces
+namespace Music_Portal.Services.Interfaces
 {
     public interface IArtistService
     {

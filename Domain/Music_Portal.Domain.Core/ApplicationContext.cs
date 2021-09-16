@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Domain.Core
+namespace Music_Portal.Domain.Core
 {
     public class ApplicationContext : DbContext
     {

@@ -2,42 +2,35 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Domain.Core;
-using Infrastructure.Data;
-using Services.Interfaces;
+using Music_Portal.Domain.Core;
+using Music_Portal.Domain.Interfaces;
+using Music_Portal.Services.Interfaces;
 
-namespace Services.Services
+namespace Music_Portal.Services.Services
 {
     public class ArtistService : IArtistService
     {
         private readonly ILastFmService _lastFmService;
         private readonly IMapper _mapper;
-        private readonly ApplicationContext _db;
+        private readonly IArtistRepository _repository;
 
-        public ArtistService(ILastFmService lastFmService, IMapper mapper, ApplicationContext db)
+        public ArtistService(ILastFmService lastFmService, IMapper mapper, IArtistRepository repository)
         {
             _lastFmService = lastFmService;
             _mapper = mapper;
-            _db = db;
+            _repository = repository;
         }
 
         public async Task<IEnumerable<Artist>> GetTopArtists()
         {
-            var topArtistsLastFm = await _lastFmService.GetTopArtists();
-            var topArtists = _mapper.Map<IEnumerable<Artist>>(topArtistsLastFm);
-            
-            var repository = new ArtistRepository(_db);
-            
-            foreach (var artist in topArtists)
+            if (_repository.GetArtistsEnumerable() == null)
             {
-                var curArtist = repository.GetArtist(artist.Name);
-                if (curArtist != null)
+                var topArtistsLastFm = await _lastFmService.GetTopArtists();
+                var topArtists = _mapper.Map<IEnumerable<Artist>>(topArtistsLastFm);
+
+                foreach (var artist in topArtists)
                 {
-                   repository.Update(curArtist);
-                }
-                else
-                { 
-                    repository.Create(new Artist
+                    _repository.Create(new Artist
                     {
                         Name = artist.Name,
                         Url = artist.Url,
@@ -46,7 +39,23 @@ namespace Services.Services
                     });
                 }
             }
-            return repository.GetArtistsEnumerable().OrderByDescending(a => a.Listeners);
+
+            return _repository.GetArtistsEnumerable().OrderByDescending(a => a.Listeners);
+        }
+
+        public void UpdateArtistsInfo(IEnumerable<Artist> artistsFromRequest)
+        {
+            foreach (var artist in artistsFromRequest)
+            {
+                if (_repository.GetArtist(artist.Name) != null)
+                {
+                    _repository.Update(artist);
+                }
+                else
+                {
+                    _repository.Create(artist);
+                }
+            }
         }
     }
 }

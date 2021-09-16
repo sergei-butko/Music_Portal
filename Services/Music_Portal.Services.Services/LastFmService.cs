@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Services.Interfaces.Models;
-using Services.Interfaces;
+using Music_Portal.Services.Interfaces.Models;
+using Music_Portal.Services.Interfaces;
 
-namespace Services.Services
+namespace Music_Portal.Services.Services
 {
     public class LastFmService : ILastFmService
     {

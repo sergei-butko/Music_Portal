@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Domain.Core;
-using Domain.Interfaces;
+using Music_Portal.Domain.Core;
+using Music_Portal.Domain.Interfaces;
 
-namespace Infrastructure.Data
+namespace Music_Portal.Infrastructure.Data
 {
     public class ArtistRepository : IArtistRepository
     {
@@ -32,20 +32,22 @@ namespace Infrastructure.Data
 
         public void Update(Artist artist)
         {
-            var curArtist = _db.Artists.FirstOrDefault(a => a.Id == artist.Id);
-            if (curArtist != null)
+            var artistToUpdate = _db.Artists.FirstOrDefault(a => a.Id == artist.Id);
+            if (artistToUpdate != null)
             {
-                curArtist.Listeners = artist.Listeners;
-                curArtist.Playcount = artist.Playcount;
+                artistToUpdate.Listeners = artist.Listeners;
+                artistToUpdate.Playcount = artist.Playcount;
                 _db.SaveChanges();
             }
         }
-
+        
         public void Delete(int id)
         {
             Artist artist = _db.Artists.FirstOrDefault(a => a.Id == id);
             if (artist != null)
+            {
                 _db.Artists.Remove(artist);
+            }
             _db.SaveChanges();
         }
     }

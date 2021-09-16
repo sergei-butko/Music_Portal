@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Domain.Core;
+using Music_Portal.Domain.Core;
 
-namespace Domain.Interfaces
+namespace Music_Portal.Domain.Interfaces
 {
     public interface IArtistRepository
     {
