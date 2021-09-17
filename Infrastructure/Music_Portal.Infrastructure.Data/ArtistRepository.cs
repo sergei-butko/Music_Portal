@@ -30,6 +30,20 @@ namespace Music_Portal.Infrastructure.Data
             _db.SaveChanges();
         }
 
+        public void CreateRange(IEnumerable<Artist> artists)
+        {
+            foreach (var artist in artists)
+            {
+                Create(new Artist
+                {
+                    Name = artist.Name,
+                    Url = artist.Url,
+                    Playcount = artist.Playcount,
+                    Listeners = artist.Listeners
+                });
+            }
+        }
+
         public void Update(Artist artist)
         {
             var artistToUpdate = _db.Artists.FirstOrDefault(a => a.Id == artist.Id);
@@ -48,6 +62,7 @@ namespace Music_Portal.Infrastructure.Data
             {
                 _db.Artists.Remove(artist);
             }
+
             _db.SaveChanges();
         }
     }

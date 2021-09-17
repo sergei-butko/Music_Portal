@@ -23,39 +23,15 @@ namespace Music_Portal.Services.Services
 
         public async Task<IEnumerable<Artist>> GetTopArtists()
         {
-            if (_repository.GetArtistsEnumerable() == null)
+            var artists = _repository.GetArtistsEnumerable();
+            if (artists == null)
             {
                 var topArtistsLastFm = await _lastFmService.GetTopArtists();
                 var topArtists = _mapper.Map<IEnumerable<Artist>>(topArtistsLastFm);
-
-                foreach (var artist in topArtists)
-                {
-                    _repository.Create(new Artist
-                    {
-                        Name = artist.Name,
-                        Url = artist.Url,
-                        Playcount = artist.Playcount,
-                        Listeners = artist.Listeners
-                    });
-                }
+                _repository.CreateRange(topArtists);
             }
 
-            return _repository.GetArtistsEnumerable().OrderByDescending(a => a.Listeners);
-        }
-
-        public void UpdateArtistsInfo(IEnumerable<Artist> artistsFromRequest)
-        {
-            foreach (var artist in artistsFromRequest)
-            {
-                if (_repository.GetArtist(artist.Name) != null)
-                {
-                    _repository.Update(artist);
-                }
-                else
-                {
-                    _repository.Create(artist);
-                }
-            }
+            return artists.OrderByDescending(a => a.Listeners);
         }
     }
 }

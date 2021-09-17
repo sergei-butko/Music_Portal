@@ -8,6 +8,7 @@ namespace Music_Portal.Domain.Interfaces
         IEnumerable<Artist> GetArtistsEnumerable();
         Artist GetArtist(string name);
         void Create(Artist artist);
+        void CreateRange(IEnumerable<Artist> artists);
         void Update(Artist artist);
         void Delete(int id);
     }
