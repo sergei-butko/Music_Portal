@@ -1,8 +1,7 @@
-﻿namespace Core
+﻿namespace Music_Portal.Services.Interfaces.Models
 {
-    public class Artist
+    public class ArtistLastFm
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public int Playcount { get; set; }
         public int Listeners { get; set; }

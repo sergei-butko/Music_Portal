@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Core;
-using Interfaces.Models;
+using Music_Portal.Domain.Core;
+using Music_Portal.Services.Interfaces.Models;
 
-namespace Services
+namespace Music_Portal.Services.Services
 {
     public class MappingProfile : Profile
     {

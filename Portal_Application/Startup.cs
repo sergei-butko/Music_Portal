@@ -6,9 +6,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Core;
-using Interfaces;
-using Services;
+using Music_Portal.Domain.Interfaces;
+using Music_Portal.Infrastructure.Data;
+using Music_Portal.Services.Services;
+using Music_Portal.Services.Interfaces;
 
 namespace Portal_Application
 {
@@ -23,7 +24,7 @@ namespace Portal_Application
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationContext>(options => options
+            services.AddDbContext<Music_Portal.Domain.Core.ApplicationContext>(options => options
                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
             services.AddControllers();
@@ -32,6 +33,7 @@ namespace Portal_Application
             
             services.AddSingleton<ILastFmService, LastFmService>();
             services.AddTransient<IArtistService, ArtistService>();
+            services.AddTransient<IArtistRepository, ArtistRepository>();
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

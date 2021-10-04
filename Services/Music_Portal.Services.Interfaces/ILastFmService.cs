@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Interfaces.Models;
+using Music_Portal.Services.Interfaces.Models;
 
-namespace Interfaces
+namespace Music_Portal.Services.Interfaces
 {
     public interface ILastFmService
     {

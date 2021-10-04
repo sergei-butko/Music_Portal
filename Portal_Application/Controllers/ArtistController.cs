@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Core;
-using Interfaces;
+using Music_Portal.Domain.Core;
+using Music_Portal.Services.Interfaces;
 
 namespace Portal_Application.Controllers
 {
