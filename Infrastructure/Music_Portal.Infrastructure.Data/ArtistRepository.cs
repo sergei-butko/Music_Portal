@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Music_Portal.Domain.Core;
 using Music_Portal.Domain.Interfaces;
@@ -18,7 +19,7 @@ namespace Music_Portal.Infrastructure.Data
         {
             if (!_db.Artists.Any())
             {
-                return new List<Artist>();
+                return Array.Empty<Artist>();
             }
             return _db.Artists;
         }
@@ -53,7 +54,7 @@ namespace Music_Portal.Infrastructure.Data
 
         public void Delete(int id)
         {
-            Artist artist = _db.Artists.FirstOrDefault(a => a.Id == id);
+            var artist = _db.Artists.FirstOrDefault(a => a.Id == id);
             if (artist != null)
             {
                 _db.Artists.Remove(artist);
