@@ -58,20 +58,5 @@ namespace Music_Portal.Infrastructure.Data
 
             _db.SaveChanges();
         }
-/*
-        public IEnumerable<Artist> GetSimilarArtistsEnumerable(Artist baseArtist)
-        {
-            var similarArtistsEntry = _db.SimilarArtists;
-            var similarArtists = new List<Artist>();
-            foreach (var artistEntry in similarArtistsEntry)
-            {
-                if (artistEntry.BaseArtistId == baseArtist.Id)
-                {
-                    similarArtists.Add(artistEntry.SimilarArtist);
-                }
-            }
-
-            return similarArtists;
-        }*/
     }
 }
