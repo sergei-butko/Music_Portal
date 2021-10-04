@@ -5,12 +5,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Domain\Music_Portal.Domain.Core\Music_Portal.Domain.Core.csproj"/>
-        <ProjectReference Include="..\..\Domain\Music_Portal.Domain.Interfaces\Music_Portal.Domain.Interfaces.csproj"/>
+        <ProjectReference Include="..\..\Domain\Music_Portal.Domain.Core\Music_Portal.Domain.Core.csproj" />
+        <ProjectReference Include="..\..\Domain\Music_Portal.Domain.Interfaces\Music_Portal.Domain.Interfaces.csproj" />
     </ItemGroup>
 
 </Project>

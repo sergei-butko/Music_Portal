@@ -24,14 +24,13 @@ namespace Music_Portal.Services.Services
         public async Task<IEnumerable<Artist>> GetTopArtists()
         {
             var artists = _repository.GetArtistsEnumerable();
-            if (artists == null)
-            {
-                var topArtistsLastFm = await _lastFmService.GetTopArtists();
-                var topArtists = _mapper.Map<IEnumerable<Artist>>(topArtistsLastFm);
-                _repository.CreateRange(topArtists);
-            }
-
-            return artists.OrderByDescending(a => a.Listeners);
+            if (artists != null) return artists.OrderByDescending(a => a.Listeners);
+            
+            var topArtistsLastFm = await _lastFmService.GetTopArtists();
+            var topArtists = _mapper.Map<IEnumerable<Artist>>(topArtistsLastFm).ToList();
+            _repository.CreateRange(topArtists);
+            
+            return topArtists.OrderByDescending(a => a.Listeners);
         }
     }
 }
