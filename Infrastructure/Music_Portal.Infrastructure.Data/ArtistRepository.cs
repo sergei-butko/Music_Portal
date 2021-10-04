@@ -14,9 +14,12 @@ namespace Music_Portal.Infrastructure.Data
             _db = context;
         }
 
-        public IEnumerable<Artist> GetArtistsEnumerable()
+        public IEnumerable<Artist> GetArtists()
         {
-            if (!_db.Artists.Any()) return null;
+            if (!_db.Artists.Any())
+            {
+                return new List<Artist>();
+            }
             return _db.Artists;
         }
 

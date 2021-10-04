@@ -5,7 +5,7 @@ namespace Music_Portal.Domain.Interfaces
 {
     public interface IArtistRepository
     {
-        IEnumerable<Artist> GetArtistsEnumerable();
+        IEnumerable<Artist> GetArtists();
         Artist GetArtist(string name);
         void Create(Artist artist);
         void CreateRange(IEnumerable<Artist> artists);

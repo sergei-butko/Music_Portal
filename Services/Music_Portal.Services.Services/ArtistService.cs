@@ -23,8 +23,11 @@ namespace Music_Portal.Services.Services
 
         public async Task<IEnumerable<Artist>> GetTopArtists()
         {
-            var artists = _repository.GetArtistsEnumerable();
-            if (artists != null) return artists.OrderByDescending(a => a.Listeners);
+            var artists = _repository.GetArtists().ToList();
+            if (artists.Count > 0)
+            {
+                return artists.OrderByDescending(a => a.Listeners);
+            }
             
             var topArtistsLastFm = await _lastFmService.GetTopArtists();
             var topArtists = _mapper.Map<IEnumerable<Artist>>(topArtistsLastFm).ToList();
