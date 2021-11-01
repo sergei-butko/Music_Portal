@@ -25,6 +25,7 @@ namespace Portal_Application
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<Music_Portal.Domain.Core.ApplicationContext>(options => options
+                .UseLazyLoadingProxies()
                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
             services.AddControllers();
@@ -34,6 +35,7 @@ namespace Portal_Application
             services.AddSingleton<ILastFmService, LastFmService>();
             services.AddTransient<IArtistService, ArtistService>();
             services.AddTransient<IArtistRepository, ArtistRepository>();
+            services.AddTransient<ITrackRepository, TrackRepository>();
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

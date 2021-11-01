@@ -10,5 +10,6 @@ namespace Music_Portal.Domain.Core
         }
         
         public DbSet<Artist> Artists { get; set; }
+        public DbSet<Track> Tracks { get; set; }
     }
 }

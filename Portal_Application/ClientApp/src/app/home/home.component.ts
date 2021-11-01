@@ -1,6 +1,6 @@
-import {AfterViewInit, Component, Inject} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Artist} from "./artist"
+import {Component} from '@angular/core';
+import {Artist} from "../artist/artist"
+import {DataService} from "../data.service";
 
 @Component({
   selector: 'app-home',
@@ -10,10 +10,9 @@ import {Artist} from "./artist"
 export class HomeComponent {
   artists: Artist[];
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<Artist[]>(baseUrl + 'artist/top_artists').subscribe(result => {
-      this.artists = result;
-    }, error => console.error(error));
+  constructor(private dataService: DataService) {
+    this.dataService.getTopArtists()
+      .subscribe((data: Artist[]) => this.artists = data);
   }
 
   setColor(): string {

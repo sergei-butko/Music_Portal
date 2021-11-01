@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Music_Portal.Domain.Core;
 using Music_Portal.Domain.Interfaces;
@@ -17,16 +16,12 @@ namespace Music_Portal.Infrastructure.Data
 
         public IEnumerable<Artist> GetArtists()
         {
-            if (!_db.Artists.Any())
-            {
-                return Array.Empty<Artist>();
-            }
             return _db.Artists;
         }
 
-        public Artist GetArtist(string name)
+        public Artist GetArtist(int id)
         {
-            return _db.Artists.FirstOrDefault(a => a.Name == name);
+            return _db.Artists.FirstOrDefault(a => a.Id == id);
         }
 
         public void Create(Artist artist)
@@ -48,6 +43,7 @@ namespace Music_Portal.Infrastructure.Data
             {
                 artistToUpdate.Listeners = artist.Listeners;
                 artistToUpdate.Playcount = artist.Playcount;
+                artistToUpdate.Biography = artist.Biography;
                 _db.SaveChanges();
             }
         }

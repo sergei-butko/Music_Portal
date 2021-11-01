@@ -18,9 +18,27 @@ namespace Portal_Application.Controllers
         }
         
         [HttpGet("top_artists")]
-        public async Task<IEnumerable<Artist>> Get()
+        public async Task<IEnumerable<Artist>> GetTopArtists()
         {
             return await _artistService.GetTopArtists();
+        }
+        
+        [HttpGet("artist_info")]
+        public async Task<IActionResult> GetArtistInfo(int artistId)
+        {
+            var artistOneOf = await _artistService.GetArtistInfo(artistId);
+            return artistOneOf.Match<IActionResult>(Ok,
+                invalidId => BadRequest("Incorrect ID. Must be positive"),
+                artistNotFound => NotFound("Artist Not Found"));
+        }
+        
+        [HttpGet("artist_top_tracks")]
+        public async Task<IActionResult> GetArtistTopTracks(int artistId)
+        {
+            var tracksOneOf = await _artistService.GetArtistTopTracks(artistId);
+            return tracksOneOf.Match<IActionResult>(Ok,
+                invalidId => BadRequest("Incorrect ID. Must be positive"),
+                artistNotFound => NotFound("Artist Not Found"));
         }
     }
 }

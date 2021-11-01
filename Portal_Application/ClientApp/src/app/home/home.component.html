@@ -8,10 +8,10 @@
   <div class="row">
     <div id="artist" class="cols-md-3 card m-3 px-3 pt-3 pb-0"
          [ngStyle]="{'color': 'white', 'background-color': setColor()}" *ngFor="let artist of artists">
-        <h5>{{ artist.name }}</h5>
-        <p>Listeners: {{ artist.listeners }}</p>
-        <p>Playcount: {{ artist.playcount }}</p>
-        <p><a class="btn btn-outline-dark" href="{{ artist.url }}" role="button">Explore</a></p>
+      <h5>{{ artist.name }}</h5>
+      <p>Listeners: {{ artist.listeners }}</p>
+      <p>Playcount: {{ artist.playcount }}</p>
+      <p><a class="btn btn-outline-dark" [routerLink]="['artist/artist_info', artist.id]" role="button">Explore</a></p>
     </div>
   </div>
 </div>
