@@ -9,7 +9,9 @@ namespace Music_Portal.Services.Interfaces
     public interface IArtistService
     {
         Task<IEnumerable<Artist>> GetTopArtists();
-        Task<OneOf<Artist, InvalidId, ArtistNotFound >> GetArtistInfo(int id);
-        Task<OneOf<IEnumerable<Track>, InvalidId, ArtistNotFound >>GetArtistTopTracks(int id);
+        Task<OneOf<Artist, InvalidId, ArtistNotFound >> GetArtistInfo(int artistId);
+        Task<OneOf<IEnumerable<Album>, InvalidId, ArtistNotFound>> GetArtistTopAlbums(int artistId);
+        Task<OneOf<IEnumerable<Track>, InvalidId, ArtistNotFound>> GetArtistTopTracks(int artistId);
+        Task<OneOf<IEnumerable<Artist>, InvalidId, ArtistNotFound>> GetSimilarArtists(int artistId);
     }
 }

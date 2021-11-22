@@ -1,0 +1,14 @@
+﻿{
+  "profiles": {
+    "Portal_Application": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "REQUEST": "https://ws.audioscrobbler.com/2.0/",
+        "API_KEY": "b96a38553e5045f118f8097659031ff3"
+      }
+    }
+  }
+}

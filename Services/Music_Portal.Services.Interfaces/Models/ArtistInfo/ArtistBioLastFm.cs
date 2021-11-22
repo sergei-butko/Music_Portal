@@ -2,6 +2,7 @@
 {
     public class ArtistBioLastFm
     {
+        public string Summary { get; set; }
         public string Content { get; set; }
     }
 }

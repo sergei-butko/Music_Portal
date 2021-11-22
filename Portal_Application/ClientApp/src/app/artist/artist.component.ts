@@ -1,21 +1,30 @@
-﻿import {Component, OnInit} from '@angular/core';
-import {Artist} from "./artist"
+﻿import {Component} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {Observable} from "rxjs";
 import {DataService} from "../data.service"
+import {Artist} from "./artist"
+import {Album} from "../album/album";
+import {Track} from "../track/track";
 
 @Component({
   selector: 'app-artist',
-  templateUrl: './artist.component.html',
+  templateUrl: './artist.component.html'
 })
 
-export class ArtistComponent implements OnInit {
+export class ArtistComponent {
   id: number;
-  artist: Artist;
+  artist$: Observable<Artist>;
+  albums$: Observable<Album[]>;
+  tracks$: Observable<Track[]>;
+  similar$: Observable<Artist[]>;
 
-  constructor(private dataService: DataService) {
-  }
-
-  ngOnInit() {
-    this.dataService.getArtistInfo(this.id)
-      .subscribe((data: Artist) => this.artist = data);
+  constructor(private dataService: DataService, private route: ActivatedRoute) {
+    this.route.params.subscribe(params => {
+      this.id = params['id']
+    })
+    this.artist$ = this.dataService.getArtistInfo(this.id);
+    this.albums$ = this.dataService.getArtistTopAlbums(this.id);
+    this.tracks$ = this.dataService.getArtistTopTracks(this.id);
+    this.similar$ = this.dataService.getSimilarArtists(this.id);
   }
 }

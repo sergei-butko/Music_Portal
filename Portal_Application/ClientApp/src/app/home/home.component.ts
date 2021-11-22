@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {Artist} from "../artist/artist"
+import {Observable} from "rxjs";
 import {DataService} from "../data.service";
+import {Artist} from "../artist/artist"
 
 @Component({
   selector: 'app-home',
@@ -8,17 +9,9 @@ import {DataService} from "../data.service";
 })
 
 export class HomeComponent {
-  artists: Artist[];
+  artists$: Observable<Artist[]>;
 
   constructor(private dataService: DataService) {
-    this.dataService.getTopArtists()
-      .subscribe((data: Artist[]) => this.artists = data);
-  }
-
-  setColor(): string {
-    let colors: string[] = ["cadetblue", "coral", "cornflowerblue", "darkkhaki", "darkcyan", "lightgreen",
-      "darkseagreen", "plum", "gray", "lightsalmon", "lightskyblue", "orchid", "thistle"];
-    let randNum = Math.floor(Math.random() * colors.length);
-    return colors[randNum];
+    this.artists$ = this.dataService.getTopArtists();
   }
 }

@@ -29,15 +29,20 @@ namespace Portal_Application
                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
             services.AddControllers();
-            
+
+            services.AddAutoMapper(Assembly.GetAssembly(typeof(Music_Portal.Services.Services.MappingProfile)));
             services.AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfile)));
-            
+
             services.AddSingleton<ILastFmService, LastFmService>();
             services.AddTransient<IArtistService, ArtistService>();
+            services.AddTransient<IAlbumService, AlbumService>();
+            services.AddTransient<ITrackService, TrackService>();
             services.AddTransient<IArtistRepository, ArtistRepository>();
+            services.AddTransient<IAlbumRepository, AlbumRepository>();
             services.AddTransient<ITrackRepository, TrackRepository>();
+            services.AddTransient<ISimilarArtistRepository, SimilarArtistRepository>();
         }
-        
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

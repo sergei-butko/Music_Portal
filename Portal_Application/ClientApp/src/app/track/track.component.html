@@ -1,0 +1,34 @@
+﻿<div class="profile">
+  <div class="px-4 pt-0 pb-1 cover">
+    <div class="media align-items-end profile-head">
+      <div class="profile mx-4">
+        <img class="profile-img rounded" alt="track-img"
+          src="https://www.apptuts.net/wp-content/webpc-passthru.php?src=https://www.apptuts.net/wp-content/uploads/2020/07/destaque-4-768x768.jpg&nocache=1">
+      </div>
+      <div class="media-body mb-0 text-white" *ngIf="track$ | async; let track">
+        <app-loading *ngIf="!track.summary"></app-loading>
+        <h3>{{track.name}}</h3>
+        <h5><a class="text-light" [routerLink]="['/album', track.albumId]">{{track.albumName}}</a></h5>
+        <h5><a class="text-light" [routerLink]="['/artist', track.artistId]">{{track.artistName}}</a></h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats bg-light p-4 d-flex justify-content-end text-center">
+    <ul class="list-inline mb-0" *ngIf="track$ | async; let track">
+      <li class="list-inline-item px-5">
+        <h5 class="mb-0 d-block">{{track.listeners}}</h5>
+        <small class="text"><i class="fas fa-image mr-1"></i>Listeners</small>
+      </li>
+      <li class="list-inline-item">
+        <h5 class="mb-0 d-block">{{track.playcount}}</h5>
+        <small class="text"> <i class="fas fa-user mr-1"></i>Playcount</small>
+      </li>
+    </ul>
+  </div>
+
+  <div id="wiki" class="p-5 bg-white shadow mb-5" *ngIf="track$ | async; let track">
+    <app-loading *ngIf="!track"></app-loading>
+    <app-wiki [summary]="track.summary" [wiki]="track.wiki"></app-wiki>
+  </div>
+</div>

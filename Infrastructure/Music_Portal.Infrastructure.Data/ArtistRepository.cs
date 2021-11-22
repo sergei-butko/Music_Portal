@@ -43,6 +43,7 @@ namespace Music_Portal.Infrastructure.Data
             {
                 artistToUpdate.Listeners = artist.Listeners;
                 artistToUpdate.Playcount = artist.Playcount;
+                artistToUpdate.Summary = artist.Summary;
                 artistToUpdate.Biography = artist.Biography;
                 _db.SaveChanges();
             }

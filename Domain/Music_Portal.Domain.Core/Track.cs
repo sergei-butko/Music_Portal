@@ -10,9 +10,12 @@ namespace Music_Portal.Domain.Core
         public string Name { get; set; }
         public int Playcount { get; set; }
         public int Listeners { get; set; }
-        [MaxLength(200)]
-        public string Url { get; set; }
         [Required]
         public virtual Artist Artist { get; set; }
+        public virtual Album Album { get; set; }
+        [DataType(DataType.MultilineText)]
+        public string Summary { get; set; }
+        [DataType(DataType.MultilineText)]
+        public string Wiki { get; set; }
     }
 }

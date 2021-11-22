@@ -1,6 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  color: #eee9e6;
+  background: #655397;
+  background: -webkit-linear-gradient(to right, #655397, #d7d2cc);
+  background: linear-gradient(to right, #655397, #d7d2cc);
+  min-height: 100vh;
+}
 
-/* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
 }
@@ -13,4 +18,41 @@ code {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.profile {
+  border-radius: 10px;
+}
+
+.profile-img {
+  width: 200px;
+}
+
+.stats {
+  background: #626262;
+  background: -webkit-linear-gradient(to left, #626262, #d7d2cc);
+  background: linear-gradient(to left, #626262, #d7d2cc);
+}
+
+.nav-pills .nav-link {
+  color: #555;
+}
+
+.profile-head {
+  transform: translateY(5rem)
+}
+
+.cover {
+  background-image: url(https://www.1812theatre.com.au/wp/wp-content/uploads/2016/02/music.jpg);
+  background-size: cover;
+  background-repeat: no-repeat
+}
+
+@media (min-width: 576px) {
+  .rounded-nav .nav-link {
+    border-radius: 50rem !important;
+  }
 }

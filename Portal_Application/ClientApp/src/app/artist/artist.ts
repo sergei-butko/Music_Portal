@@ -3,5 +3,6 @@
   name: string;
   listeners: number;
   playcount: number;
-  bio: string;
+  summary: string;
+  biography: string;
 }

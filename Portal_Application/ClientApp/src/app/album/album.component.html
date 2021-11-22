@@ -1,0 +1,43 @@
+﻿<div class="profile">
+  <div class="px-4 pt-0 pb-1 cover">
+    <div class="media align-items-end profile-head">
+      <div class="profile mx-4">
+        <img class="profile-img rounded" alt="track-img"
+             src="https://media.istockphoto.com/photos/blank-vinyl-album-cover-sleeve-mockup-isolated-clipping-path-picture-id536669874?k=20&m=536669874&s=170667a&w=0&h=MZNFRw3cEenw4dNqC1DbHExQ6PVL9-DZKpmWr4o7PgE=">
+      </div>
+      <div class="media-body mb-0 text-white" *ngIf="album$ | async; let album">
+        <app-loading *ngIf="!album.summary"></app-loading>
+        <h3>{{album.name}}</h3>
+        <h5><a class="text-light" [routerLink]="['/artist', album.artistId]">{{album.artistName}}</a></h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats bg-light p-4 d-flex justify-content-end text-center">
+    <ul class="list-inline mb-0" *ngIf="album$ | async; let album">
+      <li class="list-inline-item px-5">
+        <h5 class="mb-0 d-block">{{album.listeners}}</h5>
+        <small class="text"><i class="fas fa-image mr-1"></i>Listeners</small>
+      </li>
+      <li class="list-inline-item">
+        <h5 class="mb-0 d-block">{{album.playcount}}</h5>
+        <small class="text"> <i class="fas fa-user mr-1"></i>Playcount</small>
+      </li>
+    </ul>
+  </div>
+
+  <mat-tab-group class="p-5 bg-white shadow mb-5">
+    <mat-tab label="Tracks" *ngIf="tracks$ | async; let tracks">
+      <app-loading *ngIf="!tracks"></app-loading>
+      <ul id="track" class="mt-4" *ngFor="let track of tracks">
+        <li><a [routerLink]="['/track', track.id]">{{ track.name }}</a></li>
+      </ul>
+    </mat-tab>
+    <mat-tab label="Wiki" *ngIf="album$ | async; let album">
+      <app-loading *ngIf="!album"></app-loading>
+      <div id="wiki" class="p-5 bg-white shadow mb-5 show active" *ngIf="album$ | async; let album">
+        <app-wiki [summary]="album.summary" [wiki]="album.wiki"></app-wiki>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

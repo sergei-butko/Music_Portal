@@ -5,9 +5,8 @@ namespace Music_Portal.Services.Interfaces.Models.ArtistTracks
     public class ArtistTrackLastFm
     {
         public string Name { get; set; }
-        public string Playcount { get; set; }
-        public string Listeners { get; set; }
-        public string Url { get; set; }
+        public int Playcount { get; set; }
+        public int Listeners { get; set; }
         public ArtistLastFm Artist { get; set; }
     }
 }

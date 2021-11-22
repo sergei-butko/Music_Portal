@@ -43,6 +43,8 @@ namespace Music_Portal.Infrastructure.Data
             {
                 trackToUpdate.Playcount = track.Playcount;
                 trackToUpdate.Listeners = track.Listeners;
+                trackToUpdate.Summary = track.Summary;
+                trackToUpdate.Wiki = track.Wiki;
                 _db.SaveChanges();
             }
         }

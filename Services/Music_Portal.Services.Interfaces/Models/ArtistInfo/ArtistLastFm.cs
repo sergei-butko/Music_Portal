@@ -3,8 +3,8 @@
     public class ArtistLastFm
     {
         public string Name { get; set; }
-        public string Url { get; set; }
         public ArtistStatsLastFm Stats { get; set; }
+        public SimilarArtistsLastFm Similar { get; set; }
         public ArtistBioLastFm Bio { get; set; }
     }
 }
