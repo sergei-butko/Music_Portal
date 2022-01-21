@@ -8,5 +8,6 @@ namespace Music_Portal.Services.Interfaces
     public interface ITrackService
     {
         Task<OneOf<Track, InvalidId, TrackNotFound>> GetTrackInfo(int trackId);
+        Task<GetTrackResult> GetTrack(int trackId);
     }
 }

@@ -28,6 +28,7 @@
     <ItemGroup>
         <!-- Don't publish the SPA source files, but do show them in the project files list -->
         <Content Remove="$(SpaRoot)**" />
+        <Content Include="ClientApp\src\assets\download-icon.png" />
         <Content Include="Properties\launchSettings.json" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
@@ -36,6 +37,10 @@
     <ItemGroup>
         <ProjectReference Include="..\Domain\Music_Portal.Domain.Core\Music_Portal.Domain.Core.csproj" />
         <ProjectReference Include="..\Services\Music_Portal.Services.Services\Music_Portal.Services.Services.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="ClientApp\coverage\coverage-final.json" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

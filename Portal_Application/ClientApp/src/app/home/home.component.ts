@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Observable} from "rxjs";
-import {DataService} from "../data.service";
+import {DataService} from "../core/services/data.service";
 import {Artist} from "../artist/artist"
 
 @Component({

@@ -19,9 +19,14 @@ namespace Music_Portal.Infrastructure.Data
             return _db.Artists;
         }
 
-        public Artist GetArtist(int id)
+        public Artist GetArtistById(int id)
         {
             return _db.Artists.FirstOrDefault(a => a.Id == id);
+        }
+        
+        public Artist GetArtistByName(string name)
+        {
+            return _db.Artists.FirstOrDefault(a => a.Name == name);
         }
 
         public void Create(Artist artist)
@@ -55,9 +60,8 @@ namespace Music_Portal.Infrastructure.Data
             if (artist != null)
             {
                 _db.Artists.Remove(artist);
+                _db.SaveChanges();
             }
-
-            _db.SaveChanges();
         }
     }
 }

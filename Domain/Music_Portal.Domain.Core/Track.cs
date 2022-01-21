@@ -17,5 +17,7 @@ namespace Music_Portal.Domain.Core
         public string Summary { get; set; }
         [DataType(DataType.MultilineText)]
         public string Wiki { get; set; }
+        [MaxLength(200)]
+        public string PathToFile { get; set; }
     }
 }

@@ -12,5 +12,6 @@
         public string AlbumName { get; set; }
         public string Summary { get; set; }
         public string Wiki { get; set; }
+        public string PathToFile { get; set; }
     }
 }

@@ -1,0 +1,26 @@
+﻿<div class="media-footer" *ngIf="(currentTrack$ | async)?.url">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      {{ (state$ | async)?.readableCurrentTime }}
+      <mat-slider class="time-slider" min="0" (input)="onSliderChangeEnd($event)"
+                  [max]="(state$ | async)?.duration" step="1" [value]="(state$ | async)?.currentTime"
+                  [disabled]="(state$ | async)?.error || (currentTrack$ | async).id === undefined">
+      </mat-slider>
+      {{ (state$ | async)?.readableDuration }}
+    </mat-toolbar-row>
+    <mat-toolbar-row class="media-action-bar">
+      <div>
+        <button mat-button (click)="play()" *ngIf="!(state$ | async).playing" [disabled]="(state$ | async)?.error">
+          <mat-icon mat-list-icon>play_circle_filled</mat-icon>
+        </button>
+        <button mat-button (click)="pause()" *ngIf="(state$ | async).playing">
+          <mat-icon mat-list-icon>pause</mat-icon>
+        </button>
+      </div>
+      <div>
+        <h5>{{ (currentTrack$ | async)?.name }}</h5>
+        <h5>by {{ (currentTrack$ | async)?.artistName }}</h5>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>

@@ -9,6 +9,6 @@ namespace Music_Portal.Services.Interfaces
     public interface IAlbumService
     {
         Task<OneOf<Album, InvalidId, AlbumNotFound >> GetAlbumInfo(int albumId);
-        IEnumerable<Track> GetAlbumTracks(int albumId);
+        Task<OneOf<IEnumerable<Track>, InvalidId, AlbumNotFound>> GetAlbumTracks(int albumId);
     }
 }

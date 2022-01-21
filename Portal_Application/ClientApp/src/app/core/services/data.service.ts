@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Artist} from './artist/artist';
-import {Track} from "./track/track";
-import {Album} from "./album/album";
+import {Artist} from '../../artist/artist';
+import {Track} from "../../track-info/track";
+import {Album} from "../../album/album";
 
 @Injectable()
 export class DataService {
@@ -41,5 +41,31 @@ export class DataService {
 
   getSimilarArtists(artistId: number): Observable<Artist[]> {
     return this.http.get<Artist[]>('/artist/similar_artists/' + artistId);
+  }
+
+  downloadTrack(trackId: number) {
+    let track;
+    this.getTrackInfo(trackId)
+      .subscribe((data: Track) => track = data);
+
+    return this.http.get(`/track/get_track/${trackId}`, {responseType: 'blob'})
+      .subscribe((result: Blob) => {
+        const blob = new Blob([result], {type: "audio/mp3"});
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a') as HTMLAnchorElement;
+
+        a.href = url;
+        a.download = `${track.artistName} - ${track.name}`;
+
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        URL.revokeObjectURL(url);
+      })
+  }
+
+  getTrackUrl(trackId: number): Observable<Blob> {
+    return this.http.get(`/track/get_track/${trackId}`, {responseType: 'blob'});
   }
 }

@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
-import {DataService} from "../data.service";
+import {DataService} from "../core/services/data.service";
 import {Album} from "./album";
-import {Track} from "../track/track";
+import {Track} from "../track-info/track";
 
 @Component({
   selector: 'app-album',

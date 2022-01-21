@@ -9,4 +9,5 @@
   albumName: string;
   summary: string;
   wiki: string;
+  pathToFile: string;
 }

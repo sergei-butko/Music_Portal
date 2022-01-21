@@ -15,7 +15,9 @@ namespace Portal_Application
                 .ForMember(dest => dest.ArtistName, opt => opt.MapFrom(src => src.Artist.Name));
             CreateMap<Track, TrackViewModel>()
                 .ForMember(dest => dest.ArtistName, opt => opt.MapFrom(src => src.Artist.Name))
-                .ForMember(dest => dest.ArtistId, opt => opt.MapFrom(src => src.Artist.Id));
+                .ForMember(dest => dest.ArtistId, opt => opt.MapFrom(src => src.Artist.Id))
+                .ForMember(dest => dest.AlbumName, opt => opt.MapFrom(src => src.Album.Name))
+                .ForMember(dest => dest.AlbumId, opt => opt.MapFrom(src => src.Album.Id));
         }
     }
 }

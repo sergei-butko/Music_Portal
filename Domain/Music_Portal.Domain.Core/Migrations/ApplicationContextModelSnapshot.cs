@@ -128,6 +128,10 @@ namespace Music_Portal.Domain.Core.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<string>("PathToFile")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<int>("Playcount")
                         .HasColumnType("int");
 

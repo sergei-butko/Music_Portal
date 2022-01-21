@@ -56,7 +56,7 @@ namespace Music_Portal.Services.Services
                 return new InvalidId();
             }
 
-            var artist = _artistRepository.GetArtist(artistId);
+            var artist = _artistRepository.GetArtistById(artistId);
             if (artist == null)
             {
                 return new ArtistNotFound();
@@ -71,6 +71,10 @@ namespace Music_Portal.Services.Services
             var mappedArtist = _mapper.Map<Artist>(artistInfoLastFm);
             mappedArtist.Id = artist.Id;
             _artistRepository.Update(mappedArtist);
+
+            var mappedSimilarArtists = _mapper.Map<IEnumerable<Artist>>(artistInfoLastFm.Similar.Artist);
+            _similarArtistRepository.CreateRange(mappedSimilarArtists, mappedArtist.Id);
+
             return mappedArtist;
         }
 
@@ -81,7 +85,7 @@ namespace Music_Portal.Services.Services
                 return new InvalidId();
             }
 
-            var artist = _artistRepository.GetArtist(artistId);
+            var artist = _artistRepository.GetArtistById(artistId);
             if (artist == null)
             {
                 return new ArtistNotFound();
@@ -94,26 +98,12 @@ namespace Music_Portal.Services.Services
             }
 
             var topAlbumsLastFm = await _lastFmService.GetArtistTopAlbums(artist.Name);
-            var topAlbums = _mapper.Map<IEnumerable<Album>>(topAlbumsLastFm.Where(
-                    a => a.Playcount > 1000000)).OrderByDescending(a => a.Listeners).ToArray();
+            var topAlbums = _mapper.Map<IEnumerable<Album>>(
+                topAlbumsLastFm.OrderByDescending(a => a.Playcount)).ToArray();
             topAlbums.ForAll(t => t.Artist = artist);
             _albumRepository.CreateRange(topAlbums);
 
-            foreach (var topAlbum in topAlbums)
-            {
-                var current = await _albumService.GetAlbumInfo(topAlbum.Id);
-                if (current.AsT0.Wiki == null)
-                {
-                    _albumRepository.Delete(topAlbum.Id);
-                }
-            }
-
-            /*
-             * I know that it's not good that I call the repository method for the second time, but if I return
-             * [topAlbums] that I get from service, it won't be updated by [Delete] method in line 107 and on the view
-             * we'll get album list with those albums, we deleted. So to avoid it I need to get albums from DB again
-             */
-            return _albumRepository.GetArtistAlbums(artist.Id).ToArray();
+            return topAlbums;
         }
 
         public async Task<OneOf<IEnumerable<Track>, InvalidId, ArtistNotFound>> GetArtistTopTracks(int artistId)
@@ -123,7 +113,7 @@ namespace Music_Portal.Services.Services
                 return new InvalidId();
             }
 
-            var artist = _artistRepository.GetArtist(artistId);
+            var artist = _artistRepository.GetArtistById(artistId);
             if (artist == null)
             {
                 return new ArtistNotFound();
@@ -151,7 +141,7 @@ namespace Music_Portal.Services.Services
                 return new InvalidId();
             }
 
-            var artist = _artistRepository.GetArtist(artistId);
+            var artist = _artistRepository.GetArtistById(artistId);
             if (artist == null)
             {
                 return new ArtistNotFound();

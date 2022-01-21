@@ -1,7 +1,6 @@
 body {
   color: #eee9e6;
   background: #655397;
-  background: -webkit-linear-gradient(to right, #655397, #d7d2cc);
   background: linear-gradient(to right, #655397, #d7d2cc);
   min-height: 100vh;
 }
@@ -20,14 +19,36 @@ code {
   border-color: #1861ac;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  min-height: 100%;
+  position: relative;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+footer {
+  width: 100%;
+  background-color: #f1f1f1;
+  position: absolute;
+  bottom: 0;
+  z-index: 100;
+}
+
+#player {
+  background-color: #f1f1f1;
+  width: 100%;
+  height: 60px;
+}
 
 .profile {
   border-radius: 10px;
 }
 
 .profile-img {
+  padding-top: 50px;
   width: 200px;
 }
 
@@ -46,9 +67,30 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .cover {
+  min-height: 300px;
   background-image: url(https://www.1812theatre.com.au/wp/wp-content/uploads/2016/02/music.jpg);
   background-size: cover;
   background-repeat: no-repeat
+}
+
+.list {
+  background: #655397;
+  background: linear-gradient(to right, #655397, #d7d2cc);
+  border: 1px solid #655397;
+  border-radius: 30px;
+  padding: 10px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.play-with-track {
+  display: flex;
+  justify-content: space-between;
+}
+
+a:link, a:visited {
+  color: #eee9e6;
 }
 
 @media (min-width: 576px) {

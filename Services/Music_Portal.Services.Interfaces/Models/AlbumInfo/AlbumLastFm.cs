@@ -7,7 +7,7 @@ namespace Music_Portal.Services.Interfaces.Models.AlbumInfo
         public string Name { get; set; }
         public int Listeners { get; set; }
         public int Playcount { get; set; }
-        public IEnumerable<AlbumTrackLastFm> Track { get; set; }
+        public AlbumTracksLastFm Tracks { get; set; }
         public AlbumWikiLastFm Wiki { get; set; }
     }
 }

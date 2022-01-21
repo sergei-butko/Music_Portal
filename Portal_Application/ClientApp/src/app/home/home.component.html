@@ -6,11 +6,11 @@
 
 <div class="container">
   <div class="row" *ngIf="artists$ | async; let artists">
-    <a id="artist" class="cols-md-3 card m-3 px-3 pt-3 pb-0" appSetRandomColor
+    <a id="artist" class="col-md-2 card-body m-3 p-3" appSetRandomColor
        *ngFor="let artist of artists" [routerLink]="['artist', artist.id]">
-      <h5>{{ artist.name }}</h5>
-      <p>Listeners: {{ artist.listeners }}</p>
-      <p>Playcount: {{ artist.playcount }}</p>
+      <h4 class="pb-3">{{ artist.name }}</h4>
+      <h6>Listeners: {{ artist.listeners }}</h6>
+      <h6>Playcount: {{ artist.playcount }}</h6>
     </a>
   </div>
 </div>

@@ -17,7 +17,6 @@ namespace Music_Portal.Domain.Core
         public string Wiki { get; set; }
         [Required]
         public virtual Artist Artist { get; set; }
-        [Required]
         public virtual IEnumerable<Track> Tracks { get; set; } = new List<Track>();
     }
 }

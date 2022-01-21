@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.IO;
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Music_Portal.Services.Interfaces;
 using Portal_Application.ViewModels;
@@ -10,8 +12,8 @@ namespace Portal_Application.Controllers
     [Route("[controller]")]
     public class TrackController : ControllerBase
     {
-        private readonly ITrackService _trackService;
         private readonly IMapper _mapper;
+        private readonly ITrackService _trackService;
 
         public TrackController(ITrackService trackService, IMapper mapper)
         {
@@ -27,6 +29,14 @@ namespace Portal_Application.Controllers
                 trackInfo => Ok(_mapper.Map<TrackViewModel>(trackInfo)),
                 invalidId => BadRequest("Incorrect ID. Must be positive"),
                 trackNotFound => NotFound("Track Not Found"));
+        }
+
+        [HttpGet("get_track/{trackId}")]
+        public async Task<FileStreamResult> GetTrack(int trackId)
+        {
+            var getTrackResult = await _trackService.GetTrack(trackId);
+
+            return File(getTrackResult.MemoryStream, getTrackResult.ContentType, getTrackResult.FileName);
         }
     }
 }

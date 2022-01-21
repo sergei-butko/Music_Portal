@@ -32,9 +32,13 @@ namespace Portal_Application.Controllers
         }
 
         [HttpGet("album_tracks/{albumId}")]
-        public IEnumerable<Track> GetAlbumTracks(int albumId)
+        public async Task<IActionResult> GetAlbumTracks(int albumId)
         {
-            return _albumService.GetAlbumTracks(albumId);
+            var albumTracksOneOf = await _albumService.GetAlbumTracks(albumId);
+            return albumTracksOneOf.Match<IActionResult>(
+                albumTracks => Ok(_mapper.Map<IEnumerable<TrackViewModel>>(albumTracks)),
+                invalidId => BadRequest("Incorrect ID. Must be positive"),
+                albumNotFound => NotFound("Album Not Found"));
         }
     }
 }

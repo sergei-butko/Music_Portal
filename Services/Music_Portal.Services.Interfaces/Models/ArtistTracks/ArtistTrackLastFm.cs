@@ -1,4 +1,5 @@
-﻿using Music_Portal.Services.Interfaces.Models.ArtistInfo;
+﻿using Music_Portal.Services.Interfaces.Models.AlbumInfo;
+using Music_Portal.Services.Interfaces.Models.TrackInfo;
 
 namespace Music_Portal.Services.Interfaces.Models.ArtistTracks
 {
@@ -7,6 +8,5 @@ namespace Music_Portal.Services.Interfaces.Models.ArtistTracks
         public string Name { get; set; }
         public int Playcount { get; set; }
         public int Listeners { get; set; }
-        public ArtistLastFm Artist { get; set; }
     }
 }

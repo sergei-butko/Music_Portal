@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Music_Portal.Domain.Core;
 using Music_Portal.Domain.Interfaces;
@@ -11,15 +13,18 @@ namespace Music_Portal.Services.Services
 {
     public class AlbumService : IAlbumService
     {
-        private readonly ILastFmService _lastFmService;
         private readonly IMapper _mapper;
+        private readonly ILastFmService _lastFmService;
         private readonly IAlbumRepository _albumRepository;
-
-        public AlbumService(ILastFmService lastFmService, IMapper mapper, IAlbumRepository albumRepository)
+        private readonly ITrackRepository _trackRepository;
+        
+        public AlbumService(IMapper mapper, ILastFmService lastFmService,
+            IAlbumRepository albumRepository, ITrackRepository trackRepository)
         {
-            _lastFmService = lastFmService;
             _mapper = mapper;
+            _lastFmService = lastFmService;
             _albumRepository = albumRepository;
+            _trackRepository = trackRepository;
         }
 
         public async Task<OneOf<Album, InvalidId, AlbumNotFound>> GetAlbumInfo(int albumId)
@@ -43,13 +48,45 @@ namespace Music_Portal.Services.Services
             var mappedAlbum = _mapper.Map<Album>(albumInfoLastFm);
             mappedAlbum.Id = album.Id;
             mappedAlbum.Name = album.Name;
+            
             _albumRepository.Update(mappedAlbum);
             return mappedAlbum;
         }
 
-        public IEnumerable<Track> GetAlbumTracks(int albumId)
+        public async Task<OneOf<IEnumerable<Track>, InvalidId, AlbumNotFound>> GetAlbumTracks(int albumId)
         {
-            return _albumRepository.GetAlbum(albumId).Tracks;
+            if (albumId <= 0)
+            {
+                return new InvalidId();
+            }
+            
+            var album = _albumRepository.GetAlbum(albumId);
+            if (album == null)
+            {
+                return new AlbumNotFound();
+            }
+
+            var albumTracks = _trackRepository.GetAlbumTracks(albumId).ToArray();
+            if (albumTracks.Any())
+            {
+                return albumTracks;
+            }
+
+            var albumTracksLastFm = await _lastFmService.GetAlbumTracks(album.Name, album.Artist.Name);
+            var mappedAlbumTracks = _mapper.Map<IEnumerable<Track>>(albumTracksLastFm).ToArray();
+            foreach (var track in mappedAlbumTracks)
+            {
+                var currentTrack = _trackRepository.GetTracks().FirstOrDefault(t => t.Name == track.Name);
+                if (currentTrack != null)
+                {
+                    track.Id = currentTrack.Id;
+                }
+                track.Album = album;
+                
+                _trackRepository.Update(track);
+            }
+            
+            return mappedAlbumTracks;
         }
     }
 }

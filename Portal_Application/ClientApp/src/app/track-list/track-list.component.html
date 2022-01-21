@@ -1,0 +1,14 @@
+﻿<ul id="track" class="mt-4" *ngFor="let track of tracks">
+  <li class="list">
+    <div class="play-with-track">
+      <button class="border-0 bg-transparent" *ngIf="track.pathToFile" (click)="playTrack(track.id)">
+        <img src="../../assets/play-button.png" alt="play" [ngStyle]="{'display': state.playing ? 'none' : 'block'}">
+        <img src="../../assets/pause-button.png" alt="pause" [ngStyle]="{'display': state.playing ? 'block' : 'none'}">
+      </button>
+      <a class="mt-2 ms-2 h6" [routerLink]="['/track', track.id]">{{ track.name }}</a>
+    </div>
+    <button class="border-0 bg-transparent" *ngIf="track.pathToFile" (click)="downloadTrack(track.id)">
+      <img src="../../assets/download-icon.png" alt="download">
+    </button>
+  </li>
+</ul>

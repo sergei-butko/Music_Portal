@@ -1,8 +1,8 @@
 ﻿import {Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {DataService} from "../data.service";
-import {Track} from "./track";
 import {Observable} from "rxjs";
+import {DataService} from "../core/services/data.service";
+import {Track} from '../track-info/track';
 
 @Component({
   selector: 'app-track',
@@ -18,5 +18,9 @@ export class TrackComponent {
       this.id = params['id']
     })
     this.track$ = this.dataService.getTrackInfo(this.id);
+  }
+
+  downloadTrack(trackId): void {
+    this.dataService.downloadTrack(trackId);
   }
 }

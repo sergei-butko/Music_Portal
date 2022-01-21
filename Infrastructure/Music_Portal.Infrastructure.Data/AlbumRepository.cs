@@ -55,9 +55,8 @@ namespace Music_Portal.Infrastructure.Data
             if (album != null)
             {
                 _db.Albums.Remove(album);
+                _db.SaveChanges();
             }
-
-            _db.SaveChanges();
         }
     }
 }

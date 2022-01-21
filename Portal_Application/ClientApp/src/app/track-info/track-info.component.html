@@ -1,0 +1,27 @@
+﻿<div class="profile">
+  <div class="cover">
+    <div class="media align-items-end profile-head">
+      <div class="profile d-flex mx-5">
+        <app-track class="align-self-end mt-3"></app-track>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats bg-light p-5 d-flex justify-content-end text-center">
+    <ul class="list-inline mb-0" *ngIf="track$ | async; let track">
+      <li class="list-inline-item px-5">
+        <h5 class="mb-0 d-block">{{track.listeners}}</h5>
+        <small class="text"><i class="fas fa-image me-1"></i>Listeners</small>
+      </li>
+      <li class="list-inline-item">
+        <h5 class="mb-0 d-block">{{track.playcount}}</h5>
+        <small class="text"> <i class="fas fa-user me-1"></i>Playcount</small>
+      </li>
+    </ul>
+  </div>
+
+  <div id="wiki" class="p-5 bg-white shadow mb-5" *ngIf="track$ | async; let track">
+    <app-loading *ngIf="!track"></app-loading>
+    <app-wiki [summary]="track.summary" [wiki]="track.wiki"></app-wiki>
+  </div>
+</div>

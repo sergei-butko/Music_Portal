@@ -3,60 +3,84 @@ using System.Linq;
 using Music_Portal.Domain.Core;
 using Music_Portal.Domain.Interfaces;
 
-namespace Music_Portal.Infrastructure.Data
+namespace Music_Portal.Infrastructure.Data;
+
+public class TrackRepository : ITrackRepository
 {
-    public class TrackRepository : ITrackRepository
+    private readonly ApplicationContext _db;
+
+    public TrackRepository(ApplicationContext context)
     {
-        private readonly ApplicationContext _db;
+        _db = context;
+    }
 
-        public TrackRepository(ApplicationContext context)
-        {
-            _db = context;
-        }
+    public IEnumerable<Track> GetArtistTracks(int artistId)
+    {
+        return _db.Tracks.Where(t => t.Artist.Id == artistId).OrderByDescending(t => t.Listeners);
+    }
 
-        public IEnumerable<Track> GetArtistTracks(int artistId)
-        {
-            return _db.Tracks.Where(t => t.Artist.Id == artistId).OrderByDescending(t => t.Listeners);
-        }
+    public Track GetArtistTrack(int artistId, string trackName)
+    {
+        return _db.Tracks.Where(t => t.Artist.Id == artistId).FirstOrDefault(t => t.Name == trackName);
+    }
 
-        public Track GetTrack(int id)
-        {
-            return _db.Tracks.FirstOrDefault(t => t.Id == id);
-        }
+    public IEnumerable<Track> GetAlbumTracks(int albumId)
+    {
+        return _db.Tracks.Where(t => t.Album.Id == albumId);
+    }
 
-        public void Create(Track track)
+    public IEnumerable<Track> GetTracks()
+    {
+        return _db.Tracks;
+    }
+
+    public Track GetTrack(int id)
+    {
+        return _db.Tracks.FirstOrDefault(t => t.Id == id);
+    }
+
+    public void Create(Track track)
+    {
+        _db.Tracks.Add(track);
+        _db.SaveChanges();
+    }
+
+    public void CreateRange(IEnumerable<Track> tracks)
+    {
+        _db.Tracks.AddRange(tracks);
+        _db.SaveChanges();
+    }
+
+    public void Update(Track track)
+    {
+        var trackToUpdate = _db.Tracks.FirstOrDefault(t => t.Name == track.Name);
+        if (trackToUpdate != null)
         {
-            _db.Tracks.Add(track);
+            trackToUpdate.Playcount = track.Playcount;
+            trackToUpdate.Listeners = track.Listeners;
+            trackToUpdate.Summary = track.Summary;
+            trackToUpdate.Wiki = track.Wiki;
+            trackToUpdate.Album = track.Album;
             _db.SaveChanges();
         }
-        
-        public void CreateRange(IEnumerable<Track> tracks)
+    }
+
+    public void UpdatePath(Track track)
+    {
+        var trackToUpdate = _db.Tracks.FirstOrDefault(t => t.Name == track.Name);
+        if (trackToUpdate != null)
         {
-            _db.Tracks.AddRange(tracks);
+            trackToUpdate.PathToFile = track.PathToFile;
             _db.SaveChanges();
         }
+    }
 
-        public void Update(Track track)
+    public void Delete(int id)
+    {
+        var track = _db.Tracks.FirstOrDefault(t => t.Id == id);
+        if (track != null)
         {
-            var trackToUpdate = _db.Tracks.FirstOrDefault(t => t.Name == track.Name);
-            if (trackToUpdate != null)
-            {
-                trackToUpdate.Playcount = track.Playcount;
-                trackToUpdate.Listeners = track.Listeners;
-                trackToUpdate.Summary = track.Summary;
-                trackToUpdate.Wiki = track.Wiki;
-                _db.SaveChanges();
-            }
-        }
-
-        public void Delete(int id)
-        {
-            var track = _db.Tracks.FirstOrDefault(t => t.Id == id);
-            if (track != null)
-            {
-                _db.Tracks.Remove(track);
-            }
-
+            _db.Tracks.Remove(track);
             _db.SaveChanges();
         }
     }

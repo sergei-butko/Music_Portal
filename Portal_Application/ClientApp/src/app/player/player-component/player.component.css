@@ -1,0 +1,29 @@
+﻿.content {
+  margin-bottom: 312px;
+}
+
+.media-footer {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.media-action-bar {
+  width: 100%;
+  justify-content: start;
+  padding-left: 50px;
+  padding-bottom: 25px;
+}
+
+.mat-icon {
+  height: 50px;
+  width: 50px;
+  font-size: 50px;
+}
+
+.time-slider {
+  width: 100%;
+  margin: 0 50px;
+}
